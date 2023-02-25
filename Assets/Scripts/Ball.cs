@@ -39,6 +39,10 @@ public class Ball : MonoBehaviour
         myRigidBody2D.velocity = new Vector2(directions.x * speed, directions.y * speed);
     }
 
+    private void FixedUpdate() {
+        myRigidBody2D.velocity = speed * (myRigidBody2D.velocity.normalized);
+    }
+
     private void OnCollisionExit2D(Collision2D collision) {
         audioManager.PlaySound(collision.gameObject.tag);
     }

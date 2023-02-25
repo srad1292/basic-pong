@@ -11,9 +11,14 @@ public class Paddle : MonoBehaviour {
     [SerializeField]
     float speed = 2f;
 
+    [SerializeField]
+    Ball ball;
+
     Rigidbody2D myRigidBody2D;
 
     float direction = 0f;
+
+    float tolerance = 0.2f;
 
     private void Start() {
         myRigidBody2D = GetComponent<Rigidbody2D>();
@@ -25,6 +30,14 @@ public class Paddle : MonoBehaviour {
         }
         else if (paddleType == PaddleType.Player2) {
             direction = Input.GetAxisRaw("VerticalArrow");
+        } else if(paddleType == PaddleType.Computer) {
+            float yDistance = ball.gameObject.transform.position.y - gameObject.transform.position.y;
+            if(Mathf.Abs(yDistance) > tolerance) {
+                direction = Mathf.Sign(yDistance);
+            } else {
+                direction = 0f;
+            }
+            
         }
     }
 
